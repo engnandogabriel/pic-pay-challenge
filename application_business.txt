@@ -23,7 +23,3 @@
  - Deve ser feita uma autorização em um serviço externo
 
 
-
-
-
-
