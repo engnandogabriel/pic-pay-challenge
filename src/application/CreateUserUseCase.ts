@@ -23,7 +23,7 @@ export default class CreateUserUseCase implements UseCase {
       return { statusCode: 201, body: "User created" };
     } catch (error) {
       if (error instanceof Error) {
-        return { statusCode: 422, body: "User do cnot reated" };
+        return { statusCode: 422, body: error.message };
       }
       return { statusCode: 500, body: "Unexpected Error" };
     }
