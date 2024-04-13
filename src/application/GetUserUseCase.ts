@@ -21,6 +21,7 @@ export default class GetUserUseCase implements UseCase {
       return {
         statusCode: 200,
         body: {
+          id: user.getId(),
           name: user.getName(),
           document: user.getDocument(),
           email: user.getEmail(),
