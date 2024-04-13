@@ -1,0 +1,29 @@
+ - Entidades:
+
+ * User
+    id - number
+    nome - string
+    document (cpf/cnpj) - string
+    e-mail -string
+    password - string
+    type - string
+
+* Transection
+    id - id
+    payer - number
+    payee - number
+    value - float
+
+ - User podem ser comuns ou comerciantes;
+ - CPF/CNPJ devem ser únicos;
+ - Email deve ser único;
+ - Usuários comuns podem tranferir dinheiro para outros usuários e comerciantes;
+ - Usuarios comerciantes podem apenas receber dinheiro;
+ - A tranferencia so pode ocorrer caso o usuário tenha saldo na conta;
+ - Deve ser feita uma autorização em um serviço externo
+
+
+
+
+
+
