@@ -1,7 +1,8 @@
+import Document from "../Value Objects/Document";
 export default class User {
   readonly id: number;
   readonly name: string;
-  readonly document: string;
+  readonly document: Document;
   readonly email: string;
   readonly password: string;
   readonly type: string;
@@ -15,7 +16,7 @@ export default class User {
   ) {
     this.id = Math.floor(Math.random() * 100001);
     this.name = name;
-    this.document = document;
+    this.document = Document.setCPF(document);
     this.email = email;
     this.password = password;
     this.type = type;
