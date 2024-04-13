@@ -1,18 +1,19 @@
 import Document from "../Value Objects/Document";
 import Email from "../Value Objects/Email";
+import Password from "../Value Objects/Password";
 export default class User {
   private constructor(
     private id: string,
     private name: string,
     private document: Document,
     private email: Email,
-    private password: string,
+    private password: Password,
     private type: string
   ) {
     this.document = document;
   }
 
-  static create(
+  static async create(
     name: string,
     document: string,
     email: string,
@@ -25,7 +26,7 @@ export default class User {
       name,
       Document.setDocument(document),
       Email.setEmail(email),
-      password,
+      await Password.create(password),
       type
     );
   }
@@ -42,9 +43,13 @@ export default class User {
       name,
       Document.setDocument(document),
       Email.setEmail(email),
-      password,
+      Password.restore(password),
       type
     );
+  }
+
+  async validatePassword(password: string) {
+    return this.password.validate(password);
   }
   getId() {
     return this.id;
@@ -60,7 +65,7 @@ export default class User {
     return this.email.getValue();
   }
   getPassword() {
-    return this.password;
+    return this.password.getValue();
   }
   getTypeUser() {
     return this.type;
