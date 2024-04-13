@@ -1,6 +1,7 @@
 import Document from "../Value Objects/Document";
 import Email from "../Value Objects/Email";
 import Password from "../Value Objects/Password";
+import TypeUser from "../Value Objects/TypeUser";
 export default class User {
   private constructor(
     private id: string,
@@ -8,7 +9,7 @@ export default class User {
     private document: Document,
     private email: Email,
     private password: Password,
-    private type: string
+    private type: TypeUser
   ) {
     this.document = document;
   }
@@ -27,7 +28,7 @@ export default class User {
       Document.setDocument(document),
       Email.setEmail(email),
       await Password.create(password),
-      type
+      TypeUser.setUser(type)
     );
   }
   static restore(
@@ -44,7 +45,7 @@ export default class User {
       Document.setDocument(document),
       Email.setEmail(email),
       Password.restore(password),
-      type
+      TypeUser.setUser(type)
     );
   }
 
@@ -68,6 +69,6 @@ export default class User {
     return this.password.getValue();
   }
   getTypeUser() {
-    return this.type;
+    return this.type.getValue();
   }
 }
