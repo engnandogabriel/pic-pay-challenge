@@ -80,4 +80,10 @@ export default class User {
   getAmount() {
     return this.amount.getValue();
   }
+  add(value: number) {
+    this.amount.addtion(value);
+  }
+  discont(value: number) {
+    this.amount.discont(value);
+  }
 }
