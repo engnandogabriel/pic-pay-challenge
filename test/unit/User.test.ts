@@ -1,4 +1,4 @@
-import User from "../../src/entities/User";
+import User from "../../src/domain/entities/User";
 
 test("Should be created a User", () => {
   const user = new User(
