@@ -1,13 +1,38 @@
-export default class Transaction {
-  readonly id: string;
-  readonly payer: string;
-  readonly payee: string;
-  readonly value: number;
+import User from "./User";
 
-  constructor(payer: string, payee: string, value: number) {
-    this.id = `${Math.floor(Math.random() * 100001)}`;
-    this.payer = payer;
-    this.payee = payee;
-    this.value = value;
+export default class Transaction {
+  private constructor(
+    private id: string,
+    private payer: string,
+    private payee: string,
+    private value: number
+  ) {}
+
+  static create(payer: User, payee: User, value: number) {
+    const id = `${Math.floor(Math.random() * 100001)}`;
+    if (payer.getTypeUser() !== "commun")
+      throw new Error("Must be a user commun");
+    if (payee.getAmount() <= 0)
+      throw new Error("Must have a amount greater than 0");
+    if (value <= 0)
+      throw new Error("The value of transaction must be greater than 0");
+    return new Transaction(id, payer.getId(), payee.getId(), value);
+  }
+
+  static restore(id: string, payer: string, payee: string, value: number) {
+    return new Transaction(id, payer, payee, value);
+  }
+
+  getId() {
+    return this.id;
+  }
+  getPayer() {
+    return this.payer;
+  }
+  getPayee() {
+    return this.payee;
+  }
+  getValue() {
+    return this.value;
   }
 }
