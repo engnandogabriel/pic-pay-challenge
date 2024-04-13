@@ -10,7 +10,7 @@ test("Should be created a User valid", () => {
   );
   expect(user.name).toBe("John Doe");
   expect(user.document.getValue()).toBe("123.456.789-10");
-  expect(user.email).toBe("johndoe@gmail.com");
+  expect(user.email.getValue()).toBe("johndoe@gmail.com");
   expect(user.password).toBe("password123");
   expect(user.type).toBe("commun");
 });
