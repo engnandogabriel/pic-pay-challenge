@@ -1,7 +1,7 @@
 import User from "../../domain/entities/User";
 import UserRepository from "../../domain/repository/UserRepository";
 
-export default class UserRepositoryMemor implements UserRepository {
+export default class UserRepositoryMemory implements UserRepository {
   user: Array<User>;
   constructor() {
     this.user = [];
