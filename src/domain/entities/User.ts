@@ -1,3 +1,4 @@
+import Amount from "../Value Objects/Amount";
 import Document from "../Value Objects/Document";
 import Email from "../Value Objects/Email";
 import Password from "../Value Objects/Password";
@@ -9,7 +10,8 @@ export default class User {
     private document: Document,
     private email: Email,
     private password: Password,
-    private type: TypeUser
+    private type: TypeUser,
+    private amount: Amount
   ) {
     this.document = document;
   }
@@ -19,7 +21,8 @@ export default class User {
     document: string,
     email: string,
     password: string,
-    type: string
+    type: string,
+    amount: number
   ) {
     const id = `${Math.floor(Math.random() * 100001)}`;
     return new User(
@@ -28,7 +31,8 @@ export default class User {
       Document.setDocument(document),
       Email.setEmail(email),
       await Password.create(password),
-      TypeUser.setUser(type)
+      TypeUser.setUser(type),
+      Amount.createAmount(amount)
     );
   }
   static restore(
@@ -37,7 +41,8 @@ export default class User {
     document: string,
     email: string,
     password: string,
-    type: string
+    type: string,
+    amount: number
   ) {
     return new User(
       id,
@@ -45,7 +50,8 @@ export default class User {
       Document.setDocument(document),
       Email.setEmail(email),
       Password.restore(password),
-      TypeUser.setUser(type)
+      TypeUser.setUser(type),
+      Amount.createAmount(amount)
     );
   }
 
@@ -70,5 +76,8 @@ export default class User {
   }
   getTypeUser() {
     return this.type.getValue();
+  }
+  getAmount() {
+    return this.amount.getValue();
   }
 }

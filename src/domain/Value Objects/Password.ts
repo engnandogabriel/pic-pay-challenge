@@ -26,7 +26,6 @@ export default class Password {
         64,
         "sha512",
         (error, value) => {
-          console.log(this.value);
           resolve(this.value === value.toString("hex"));
         }
       );
