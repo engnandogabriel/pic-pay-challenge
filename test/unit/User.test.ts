@@ -1,3 +1,5 @@
+import User from "../../src/entities/User";
+
 test("Should be created a User", () => {
   const user = new User(
     "John Doe",
