@@ -1,8 +1,11 @@
 import CreateUserUseCase from "../../../src/application/CreateUserUseCase";
-import UserRepositoryMemory from "../../../src/infra/DataBase/UserRepositoryMemory";
+import MysqlAdapter from "../../../src/infra/DataBase/MysqlAdapter";
+import UserRepositoryMysql from "../../../src/infra/Repository/UserRepositoryMysql";
 
-test("Shold be created a User", async function () {
-  const createUserUseCase = new CreateUserUseCase(new UserRepositoryMemory());
+test.skip("Shold be created a User", async function () {
+  const createUserUseCase = new CreateUserUseCase(
+    new UserRepositoryMysql(new MysqlAdapter())
+  );
   const data = {
     name: "johndoe",
     document: "12345678910",
