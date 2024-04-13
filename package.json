@@ -1,0 +1,13 @@
+{
+  "name": "pic-pay-challenge",
+  "version": "1.0.0",
+  "description": "pic-pay-challeng",
+  "main": "index.js",
+  "repository": "https://github.com/engnandogabriel/pic-pay-challenge.git",
+  "author": "Nando Gabriel <eng.nandogabriel@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "tsc": "^2.0.4",
+    "typescript": "^5.4.5"
+  }
+}
