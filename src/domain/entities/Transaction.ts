@@ -10,12 +10,12 @@ export default class Transaction {
 
   static create(payer: User, payee: User, value: number) {
     const id = `${Math.floor(Math.random() * 100001)}`;
-    if (payer.getTypeUser() !== "commun") {
+    if (payer.getTypeUser() !== "commun")
       throw new Error("Must be a user commun");
-    }
-    if (payer.getAmount() < value) {
+
+    if (payer.getAmount() < value)
       throw new Error("Must have a amount greater than transaction value");
-    }
+
     if (value <= 0)
       throw new Error("The value of transaction must be greater than 0");
     return new Transaction(id, payer.getId(), payee.getId(), value);
