@@ -12,8 +12,8 @@ export default class Transaction {
     const id = `${Math.floor(Math.random() * 100001)}`;
     if (payer.getTypeUser() !== "commun")
       throw new Error("Must be a user commun");
-    if (payee.getAmount() <= 0)
-      throw new Error("Must have a amount greater than 0");
+    if (payee.getAmount() < value)
+      throw new Error("Must have a amount greater than transaction value");
     if (value <= 0)
       throw new Error("The value of transaction must be greater than 0");
     return new Transaction(id, payer.getId(), payee.getId(), value);

@@ -84,6 +84,8 @@ export default class User {
     this.amount.addtion(value);
   }
   discont(value: number) {
+    if (this.amount.getValue() < value)
+      throw new Error("Don't have enough balance");
     this.amount.discont(value);
   }
 }
