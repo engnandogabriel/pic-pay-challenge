@@ -4,7 +4,7 @@ export default class Document {
     this.document = document;
   }
 
-  static setCPF(value: string) {
+  static setDocument(value: string) {
     let document = value.replace(/[^\d]/g, "");
     if (document.length === 11) {
       document = document.replace(
