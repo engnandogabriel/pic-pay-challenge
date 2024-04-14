@@ -4,6 +4,6 @@ import AuthorizationGatewayHttp from "../../src/infra/gateway/AuthorizationGatew
 test("Shold be teste a Service of Authorization", async () => {
   const authorizationGateway = new AuthorizationGatewayHttp(new AxiosAdapter());
   const output = await authorizationGateway.authorization();
-  console.log(output);
-  expect(output.message).toBe("Autorizado");
+  expect(output.status).toBe(200);
+  expect(output.data.message).toBe("Autorizado");
 });
