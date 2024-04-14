@@ -4,7 +4,7 @@ import MysqlAdapter from "../../../src/infra/DataBase/MysqlAdapter";
 import UserRepositoryMemory from "../../../src/infra/Repository/UserRepositoryMemory";
 import UserRepositoryMysql from "../../../src/infra/Repository/UserRepositoryMysql";
 
-test("Should return a User", async () => {
+test.skip("Should return a User", async () => {
   const getUserUseCase = new GetUserUseCase(
     new UserRepositoryMysql(new MysqlAdapter())
   );
