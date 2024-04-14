@@ -6,12 +6,23 @@
   "repository": "https://github.com/engnandogabriel/pic-pay-challenge.git",
   "author": "Nando Gabriel <eng.nandogabriel@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon  src/index.ts"
+  },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
     "jest": "^29.7.0",
     "mysql2": "^3.9.4",
+    "nodemon": "^3.1.0",
     "ts-jest": "^29.1.2",
     "tsc": "^2.0.4",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2"
   }
 }
