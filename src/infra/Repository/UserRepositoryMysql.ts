@@ -10,7 +10,7 @@ export default class UserRepositoryMysql implements UserRepository {
 
   async save(data: User): Promise<void> {
     await this.connection.connect();
-    const test = await this.connection.query(
+    await this.connection.query(
       "INSERT INTO picpay.User (id, name, document, email, password, type, amount) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [
         data.getId(),
@@ -24,7 +24,6 @@ export default class UserRepositoryMysql implements UserRepository {
       false
     );
     await this.connection.close();
-    console.log(test);
   }
   async getUserByDocument(document: string): Promise<void | User> {
     await this.connection.connect();
@@ -52,6 +51,7 @@ export default class UserRepositoryMysql implements UserRepository {
       [id],
       false
     );
+    await this.connection.close();
     if (query)
       return User.restore(
         query.id,
@@ -64,10 +64,11 @@ export default class UserRepositoryMysql implements UserRepository {
       );
   }
   async updateAmount(data: User): Promise<void> {
+    console.log(data);
     await this.connection.connect();
     await this.connection.query(
       "UPDATE picpay.User SET amount = ? WHERE document = ?",
-      [data.getAmount(), data.getAmount()],
+      [data.getAmount(), data.getDocument()],
       false
     );
     await this.connection.close();
