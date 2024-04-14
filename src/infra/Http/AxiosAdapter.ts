@@ -13,7 +13,10 @@ export default class AxiosAdapter implements HttpClient {
   async get(url: any): Promise<any> {
     try {
       const response = await axios.get(url);
-      return response.data;
+      return {
+        status: response.status,
+        data: response.data,
+      };
     } catch (e: any) {
       return e.response.data;
     }
