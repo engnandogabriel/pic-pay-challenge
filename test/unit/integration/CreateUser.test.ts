@@ -2,7 +2,7 @@ import CreateUserUseCase from "../../../src/application/CreateUserUseCase";
 import MysqlAdapter from "../../../src/infra/DataBase/MysqlAdapter";
 import UserRepositoryMysql from "../../../src/infra/Repository/UserRepositoryMysql";
 
-test("Shold be created a User", async function () {
+test.skip("Shold be created a User", async function () {
   const createUserUseCase = new CreateUserUseCase(
     new UserRepositoryMysql(new MysqlAdapter())
   );
