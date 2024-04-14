@@ -11,6 +11,14 @@ export default class CreateUserUseCase implements UseCase {
   }
   async execute(data: HttpRequest): Promise<HttpResponse> {
     try {
+      const userDb = await this.userRepository.getUserByDocument(
+        data.body.document
+      );
+      if (userDb)
+        return {
+          statusCode: 422,
+          body: "Document in using",
+        };
       const user = await User.create(
         data.body.name,
         data.body.document,
