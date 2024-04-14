@@ -6,6 +6,7 @@ export default class UserRepositoryMemory implements UserRepository {
   constructor() {
     this.user = [];
   }
+
   async save(data: User): Promise<void> {
     this.user.push(data);
   }
@@ -14,6 +15,13 @@ export default class UserRepositoryMemory implements UserRepository {
       if (e.getDocument() === document) return e;
     }
   }
+  async getUserById(id: string): Promise<void | User> {
+    const user = this.user.map((e) => {
+      if (e.getId() === id) return e;
+    });
+    if (user) return user[0];
+  }
+
   async updateAmount(data: User): Promise<void> {
     for (const e of this.user) {
       if (e.getDocument() === data.getDocument()) {

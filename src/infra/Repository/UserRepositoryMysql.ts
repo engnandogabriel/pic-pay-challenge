@@ -7,6 +7,7 @@ export default class UserRepositoryMysql implements UserRepository {
   constructor(connection: IConnection) {
     this.connection = connection;
   }
+
   async save(data: User): Promise<void> {
     await this.connection.connect();
     const test = await this.connection.query(
@@ -33,6 +34,24 @@ export default class UserRepositoryMysql implements UserRepository {
       false
     );
     await this.connection.close();
+    if (query)
+      return User.restore(
+        query.id,
+        query.name,
+        query.document,
+        query.email,
+        query.password,
+        query.type,
+        query.amount
+      );
+  }
+  async getUserById(id: string): Promise<void | User> {
+    await this.connection.connect();
+    const [[query]] = await this.connection.query(
+      "SELECT * FROM picpay.User WHERE id = ?",
+      [id],
+      false
+    );
     if (query)
       return User.restore(
         query.id,
