@@ -11,7 +11,7 @@ export default class Amount {
 
   addtion(value: number) {
     if (value < 0) throw new Error("Amount is Invalid");
-    this.value = this.value + Number(value);
+    this.value = Number(this.value) + Number(value);
   }
   discont(value: number) {
     if (value < 0) throw new Error("Amount is Invalid");
