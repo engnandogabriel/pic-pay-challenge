@@ -12,7 +12,7 @@ export default class TransactionRepositoryMysql
   async save(data: Transaction): Promise<void> {
     await this.connection.connect();
     await this.connection.query(
-      "INSER INTO picpay.Transaction (id, payer, payee, value) VALUES (?, ?, ?, ?)",
+      "INSERT INTO picpay.Transaction (id, payer, payee, value) VALUES (?, ?, ?, ?)",
       [data.getId(), data.getPayer(), data.getPayee(), data.getValue()],
       false
     );
