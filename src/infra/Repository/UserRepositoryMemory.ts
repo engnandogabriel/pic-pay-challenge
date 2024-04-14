@@ -15,6 +15,11 @@ export default class UserRepositoryMemory implements UserRepository {
       if (e.getDocument() === document) return e;
     }
   }
+  async getUserByEmail(email: string): Promise<void | User> {
+    for (const e of this.user) {
+      if (e.getEmail() === email) return e;
+    }
+  }
   async getUserById(id: string): Promise<void | User> {
     const user = this.user.map((e) => {
       if (e.getId() === id) return e;

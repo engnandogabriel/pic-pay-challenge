@@ -44,6 +44,25 @@ export default class UserRepositoryMysql implements UserRepository {
         query.amount
       );
   }
+  async getUserByEmail(email: string): Promise<void | User> {
+    await this.connection.connect();
+    const [[query]] = await this.connection.query(
+      "SELECT * FROM picay.User WHERE email = ?",
+      [email],
+      false
+    );
+    if (query) {
+      return User.restore(
+        query.id,
+        query.name,
+        query.document,
+        query.email,
+        query.password,
+        query.type,
+        query.amount
+      );
+    }
+  }
   async getUserById(id: string): Promise<void | User> {
     await this.connection.connect();
     const [[query]] = await this.connection.query(

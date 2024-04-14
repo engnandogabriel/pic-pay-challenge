@@ -18,10 +18,16 @@ export default class CreateUserUseCase implements UseCase {
   }
   async execute(data: HttpRequest): Promise<HttpResponse> {
     try {
-      const userDb = await this.userRepository.getUserByDocument(
+      const userWithDocument = await this.userRepository.getUserByDocument(
         data.body.document
       );
-      if (userDb) return badRequest(new UnauthorizedError("Document in using"));
+      if (userWithDocument)
+        return badRequest(new UnauthorizedError("Document in using"));
+      const userWithEmail = await this.userRepository.getUserByEmail(
+        data.body.document
+      );
+      if (userWithEmail)
+        return badRequest(new UnauthorizedError("Email in using"));
       const user = await User.create(
         data.body.name,
         data.body.document,
