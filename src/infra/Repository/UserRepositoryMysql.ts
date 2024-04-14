@@ -64,7 +64,6 @@ export default class UserRepositoryMysql implements UserRepository {
       );
   }
   async updateAmount(data: User): Promise<void> {
-    console.log(data);
     await this.connection.connect();
     await this.connection.query(
       "UPDATE picpay.User SET amount = ? WHERE document = ?",
