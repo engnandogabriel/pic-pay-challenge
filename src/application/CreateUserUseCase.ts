@@ -24,7 +24,7 @@ export default class CreateUserUseCase implements UseCase {
       if (userWithDocument)
         return badRequest(new UnauthorizedError("Document in using"));
       const userWithEmail = await this.userRepository.getUserByEmail(
-        data.body.document
+        data.body.email
       );
       if (userWithEmail)
         return badRequest(new UnauthorizedError("Email in using"));

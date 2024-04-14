@@ -5,6 +5,7 @@ import HttpRequest from "../domain/Protocols/HttpRequest";
 import HttpResponse from "../domain/Protocols/HttpResponse";
 import { AuthorizantionDecorator } from "../domain/decorator/Authorization";
 import Transaction from "../domain/entities/Transaction";
+import EmailSenderGateway from "../domain/gateway/EmailSenderGateway";
 import {
   badRequest,
   notFound,
@@ -20,14 +21,17 @@ export default class CreateTrasactionUseCase implements UseCase {
   userRepository: UserRepository;
   transactionRepository: TransactionRepository;
   authorizationService: AuthorizantionDecorator;
+  emailSender: EmailSenderGateway;
   constructor(
     userRepository: UserRepository,
     transactionRepository: TransactionRepository,
-    authorizationService: AuthorizantionDecorator
+    authorizationService: AuthorizantionDecorator,
+    emailSender: EmailSenderGateway
   ) {
     this.userRepository = userRepository;
     this.transactionRepository = transactionRepository;
     this.authorizationService = authorizationService;
+    this.emailSender = emailSender;
   }
 
   async execute(data: HttpRequest): Promise<HttpResponse> {
@@ -45,6 +49,7 @@ export default class CreateTrasactionUseCase implements UseCase {
       await this.transactionRepository.save(transaction);
       await this.userRepository.updateAmount(payer);
       await this.userRepository.updateAmount(payee);
+      await this.emailSender.sender(payer, payee, data.body.value);
       return success({ message: "Transaction created" });
     } catch (error) {
       if (error instanceof Error) {

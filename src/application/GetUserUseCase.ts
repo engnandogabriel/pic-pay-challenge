@@ -22,7 +22,7 @@ export default class GetUserUseCase implements UseCase {
         data.params.document
       );
 
-      if (!user) return notFound(new NotFoundError("Transaction not Found"));
+      if (!user) return notFound(new NotFoundError("User not Found"));
       return success({
         message: "Success",
         data: {

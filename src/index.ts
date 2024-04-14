@@ -14,6 +14,7 @@ import AuthorizationGatewayHttp from "./infra/gateway/AuthorizationGateway";
 import MainController from "./infra/Controller/MainController";
 import GetAllUsers from "./application/GetAllUsersUseCase";
 import GetAllTransactionUseCase from "./application/GetAllTransactionsUseCase";
+import EmailSender from "./infra/gateway/EmailSender";
 const http = new ExpressAdapter();
 
 const createUserUseCase = new CreateUserUseCase(
@@ -30,7 +31,8 @@ const createTransactionUseCase = new CreateTrasactionUseCase(
   new TransactionRepositoryMysql(new MysqlAdapter()),
   new AutenticatosAuthorizationDecorator(
     new AuthorizationGatewayHttp(new AxiosAdapter())
-  )
+  ),
+  new EmailSender(new AxiosAdapter())
 );
 const getTransactionUseCase = new GetTransactionUseCase(
   new TransactionRepositoryMysql(new MysqlAdapter())
