@@ -1,5 +1,13 @@
+import NotFoundError from "../domain/Error/NotFoundError";
+import ServerError from "../domain/Error/ServerError";
 import HttpRequest from "../domain/Protocols/HttpRequest";
 import HttpResponse from "../domain/Protocols/HttpResponse";
+import {
+  badRequest,
+  notFound,
+  serverError,
+  success,
+} from "../domain/helpers/HttpHelpers";
 import UserRepository from "../domain/repository/UserRepository";
 import UseCase from "./UseCase";
 
@@ -14,14 +22,10 @@ export default class GetUserUseCase implements UseCase {
         data.params.document
       );
 
-      if (!user)
-        return {
-          statusCode: 404,
-          body: "User not found",
-        };
-      return {
-        statusCode: 200,
-        body: {
+      if (!user) return notFound(new NotFoundError("Transaction not Found"));
+      return success({
+        message: "Success",
+        data: {
           id: user.getId(),
           name: user.getName(),
           document: user.getDocument(),
@@ -29,12 +33,12 @@ export default class GetUserUseCase implements UseCase {
           type: user.getTypeUser(),
           amount: user.getAmount(),
         },
-      };
+      });
     } catch (error) {
       if (error instanceof Error) {
-        return { statusCode: 422, body: error.message };
+        return badRequest(error);
       }
-      return { statusCode: 500, body: "Unexpected Error" };
+      return serverError(new ServerError("Unexpected Error"));
     }
   }
 }

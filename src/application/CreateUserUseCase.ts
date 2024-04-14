@@ -1,6 +1,13 @@
+import ServerError from "../domain/Error/ServerError";
+import UnauthorizedError from "../domain/Error/UnauthorizedError";
 import HttpRequest from "../domain/Protocols/HttpRequest";
 import HttpResponse from "../domain/Protocols/HttpResponse";
 import User from "../domain/entities/User";
+import {
+  badRequest,
+  serverError,
+  success,
+} from "../domain/helpers/HttpHelpers";
 import UserRepository from "../domain/repository/UserRepository";
 import UseCase from "./UseCase";
 
@@ -14,11 +21,7 @@ export default class CreateUserUseCase implements UseCase {
       const userDb = await this.userRepository.getUserByDocument(
         data.body.document
       );
-      if (userDb)
-        return {
-          statusCode: 422,
-          body: "Document in using",
-        };
+      if (userDb) return badRequest(new UnauthorizedError("Document in using"));
       const user = await User.create(
         data.body.name,
         data.body.document,
@@ -28,12 +31,21 @@ export default class CreateUserUseCase implements UseCase {
         data.body.amount
       );
       await this.userRepository.save(user);
-      return { statusCode: 201, body: "User created" };
+      return success({
+        message: "User Created",
+        data: {
+          id: user.getId(),
+          name: user.getName(),
+          email: user.getEmail(),
+          type: user.getTypeUser(),
+          amount: user.getAmount(),
+        },
+      });
     } catch (error) {
       if (error instanceof Error) {
-        return { statusCode: 422, body: error.message };
+        return badRequest(error);
       }
-      return { statusCode: 500, body: "Unexpected Error" };
+      return serverError(new ServerError("Unexpected Error"));
     }
   }
 }
