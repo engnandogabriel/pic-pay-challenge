@@ -13,6 +13,7 @@ export default class GetUserUseCase implements UseCase {
       const user = await this.userRepository.getUserByDocument(
         data.params.document
       );
+
       if (!user)
         return {
           statusCode: 404,

@@ -11,7 +11,7 @@ export default class GetTransactionUseCase implements UseCase {
   async execute(data: HttpRequest): Promise<HttpResponse> {
     try {
       const transaction = await this.trasactionRepository.getTransactionId(
-        data.body.id
+        data.params.id
       );
       if (!transaction)
         return {
