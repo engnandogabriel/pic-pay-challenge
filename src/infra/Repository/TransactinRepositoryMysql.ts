@@ -9,6 +9,7 @@ export default class TransactionRepositoryMysql
   constructor(connection: IConnection) {
     this.connection = connection;
   }
+
   async save(data: Transaction): Promise<void> {
     await this.connection.connect();
     await this.connection.query(
@@ -33,5 +34,22 @@ export default class TransactionRepositoryMysql
         query.payee,
         query.value
       );
+  }
+  async getAllTransactions(): Promise<void | Transaction[]> {
+    await this.connection.connect();
+    const [query] = await this.connection.query(
+      "SELECT * FROM picpay.Transaction",
+      [],
+      false
+    );
+    await this.connection.close();
+    const transactions: Array<Transaction> = [];
+    if (query) {
+      for (const row of query)
+        transactions.push(
+          Transaction.restore(row.id, row.payer, row.payee, row.value)
+        );
+      return transactions;
+    }
   }
 }

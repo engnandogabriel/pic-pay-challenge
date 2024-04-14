@@ -5,4 +5,5 @@ export default interface UserRepository {
   getUserByDocument(document: string): Promise<User | void>;
   updateAmount(data: User): Promise<void>;
   getUserById(id: string): Promise<User | void>;
+  getAllUsers(): Promise<User[] | void>;
 }

@@ -8,6 +8,7 @@ export default class TransactionRepositoryMemory
   constructor() {
     this.transaction = [];
   }
+
   async save(data: Transaction): Promise<void> {
     this.transaction.push(data);
   }
@@ -15,5 +16,8 @@ export default class TransactionRepositoryMemory
     for (const transaction of this.transaction) {
       if (transaction.getId() === id) return transaction;
     }
+  }
+  async getAllTransactions(): Promise<void | Transaction[]> {
+    return this.transaction;
   }
 }

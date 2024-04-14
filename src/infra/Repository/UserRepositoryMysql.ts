@@ -72,4 +72,30 @@ export default class UserRepositoryMysql implements UserRepository {
     );
     await this.connection.close();
   }
+  async getAllUsers(): Promise<void | User[]> {
+    await this.connection.connect();
+    const [query] = await this.connection.query(
+      "SELECT * FROM picpay.User",
+      [],
+      false
+    );
+    console.log(query);
+    const users: Array<User> = [];
+    if (query) {
+      for (const row of query) {
+        users.push(
+          User.restore(
+            row.id,
+            row.name,
+            row.document,
+            row.email,
+            row.password,
+            row.type,
+            row.amount
+          )
+        );
+      }
+      return users;
+    }
+  }
 }

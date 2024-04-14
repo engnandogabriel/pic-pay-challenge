@@ -29,4 +29,7 @@ export default class UserRepositoryMemory implements UserRepository {
       }
     }
   }
+  async getAllUsers(): Promise<void | User[]> {
+    return this.user;
+  }
 }

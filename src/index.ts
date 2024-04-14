@@ -12,12 +12,17 @@ import UserRepositoryMysql from "./infra/Repository/UserRepositoryMysql";
 import AutenticatosAuthorizationDecorator from "./application/decorator/AutenticatorAuthorization/AutenticatorAuthorization";
 import AuthorizationGatewayHttp from "./infra/gateway/AuthorizationGateway";
 import MainController from "./infra/Controller/MainController";
+import GetAllUsers from "./application/GetAllUsersUseCase";
+import GetAllTransactionUseCase from "./application/GetAllTransactionsUseCase";
 const http = new ExpressAdapter();
 
 const createUserUseCase = new CreateUserUseCase(
   new UserRepositoryMysql(new MysqlAdapter())
 );
 const getUserUseCase = new GetUserUseCase(
+  new UserRepositoryMysql(new MysqlAdapter())
+);
+const getAllUserUseCase = new GetAllUsers(
   new UserRepositoryMysql(new MysqlAdapter())
 );
 const createTransactionUseCase = new CreateTrasactionUseCase(
@@ -30,11 +35,15 @@ const createTransactionUseCase = new CreateTrasactionUseCase(
 const getTransactionUseCase = new GetTransactionUseCase(
   new TransactionRepositoryMysql(new MysqlAdapter())
 );
+const getAllTransactions = new GetAllTransactionUseCase(
+  new TransactionRepositoryMysql(new MysqlAdapter())
+);
 new MainController(http);
-new UserController(http, createUserUseCase, getUserUseCase);
+new UserController(http, createUserUseCase, getUserUseCase, getAllUserUseCase);
 new TransactionController(
   http,
   createTransactionUseCase,
-  getTransactionUseCase
+  getTransactionUseCase,
+  getAllTransactions
 );
 http.listen(8080);
