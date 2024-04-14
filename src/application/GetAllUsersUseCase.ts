@@ -26,6 +26,7 @@ export default class GetAllUsers implements UseCase {
             email: row.getEmail(),
             document: row.getDocument(),
             amount: row.getAmount(),
+            type: row.getTypeUser(),
           });
         }
       }

@@ -98,7 +98,6 @@ export default class UserRepositoryMysql implements UserRepository {
       [],
       false
     );
-    console.log(query);
     const users: Array<User> = [];
     if (query) {
       for (const row of query) {
