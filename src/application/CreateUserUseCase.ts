@@ -37,7 +37,7 @@ export default class CreateUserUseCase implements UseCase {
         data.body.amount
       );
       await this.userRepository.save(user);
-      return success({
+      return success(201, {
         message: "User Created",
         data: {
           id: user.getId(),

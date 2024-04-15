@@ -28,7 +28,7 @@ export default class GetAllTransactionUseCase implements UseCase {
             value: row.getValue(),
           });
       }
-      return success({ message: "Transaction", data: transacion });
+      return success(200, { message: "Transaction", data: transacion });
     } catch (error) {
       if (error instanceof Error) {
         return badRequest(error);

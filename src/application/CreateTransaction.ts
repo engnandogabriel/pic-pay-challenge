@@ -37,9 +37,9 @@ export default class CreateTrasactionUseCase implements UseCase {
   async execute(data: HttpRequest): Promise<HttpResponse> {
     try {
       const payer = await this.userRepository.getUserById(data.body.payer);
-      if (!payer) return notFound(new NotFoundError("Payer not fount"));
+      if (!payer) return notFound(new NotFoundError("Payer not found"));
       const payee = await this.userRepository.getUserById(data.body.payee);
-      if (!payee) return notFound(new NotFoundError("Payee not fount"));
+      if (!payee) return notFound(new NotFoundError("Payee not found"));
       const transaction = Transaction.create(payer, payee, data.body.value);
       payer.discont(data.body.value);
       payee.add(data.body.value);
@@ -50,7 +50,7 @@ export default class CreateTrasactionUseCase implements UseCase {
       await this.userRepository.updateAmount(payer);
       await this.userRepository.updateAmount(payee);
       await this.emailSender.sender(payer, payee, data.body.value);
-      return success({ message: "Transaction created" });
+      return success(201, { message: "Transaction created" });
     } catch (error) {
       if (error instanceof Error) {
         return badRequest(error);

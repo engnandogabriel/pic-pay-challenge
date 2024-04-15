@@ -23,7 +23,7 @@ export default class GetUserUseCase implements UseCase {
       );
 
       if (!user) return notFound(new NotFoundError("User not Found"));
-      return success({
+      return success(200, {
         message: "Success",
         data: {
           id: user.getId(),

@@ -30,7 +30,7 @@ export default class GetAllUsers implements UseCase {
           });
         }
       }
-      return success({ message: "Users", data: user });
+      return success(200, { message: "Users", data: user });
     } catch (error) {
       if (error instanceof Error) {
         return badRequest(error);

@@ -1,0 +1,220 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "PicPay Simplificado",
+    "description": "Documentação para o desafio do PicPay Simplificado",
+    "contact": {
+      "email": "eng.nandogabriel@gmail.com"
+    }
+  },
+
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Servidor teste"
+    }
+  ],
+
+  "paths": {
+    "/user": {
+      "post": {
+        "summary": "Criação de usuário",
+        "description": "Essa rota serve para criar um usário",
+        "tags": ["Usuário"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "User": {
+                  "value": {
+                    "name": "teste name",
+                    "document": "123.456.789-10",
+                    "email": "teste@gmail.com",
+                    "password": "12345678",
+                    "type": "commun",
+                    "amount": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "400": {
+            "description": "Dados invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "Document in using",
+                        "Email in using",
+                        "Invalid password"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{document}": {
+      "get": {
+        "summary": "Buscar usuário pelo documento",
+        "description": "Essa rota serve para pegar um usário pelo seu documento (CPF / CNPJ)",
+        "tags": ["Usuário"],
+        "parameters": [
+          {
+            "name": "document",
+            "in": "path",
+            "description": "Documento para busca",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Usuario não encontrado"
+          }
+        }
+      }
+    },
+    "/user/": {
+      "get": {
+        "summary": "Buscar todos os usuários",
+        "description": "Essa rota serve para pegar todos os usário",
+        "tags": ["Usuário"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transfer": {
+      "post": {
+        "summary": "Criação de um Transação",
+        "description": "Essa rota serve para criar uma transação",
+        "tags": ["Transação"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {},
+              "examples": {
+                "Trasnaction": {
+                  "value": {
+                    "payer": "123",
+                    "payee": "456",
+                    "value": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Criado",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "400": {
+            "description": "Dados Invalidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "Payeer not found",
+                        "Payee not found",
+                        "Must be a user commun",
+                        "Must have a amount greater than transaction value",
+                        "The value of transaction must be greater than 0"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transfer/{id}": {
+      "get": {
+        "summary": "Buscar transferencia pelo id",
+        "description": "Essa rota serve para pegar uma transferência pelo ID",
+        "tags": ["Transação"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id para busca",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "Transaction not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transfer/": {
+      "get": {
+        "summary": "Buscar todass as transferencias",
+        "description": "Essa rota serve para pegar todas as transferências",
+        "tags": ["Transação"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}

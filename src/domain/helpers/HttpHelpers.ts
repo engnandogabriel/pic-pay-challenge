@@ -52,8 +52,8 @@ export const serverError = (error: Error): HttpResponse => ({
   },
 });
 
-export const success = (data: any): HttpResponse => ({
-  statusCode: 200,
+export const success = (status: number, data: any): HttpResponse => ({
+  statusCode: status,
   body: {
     type: "Success",
     message: data.message,

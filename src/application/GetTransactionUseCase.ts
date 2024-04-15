@@ -23,7 +23,7 @@ export default class GetTransactionUseCase implements UseCase {
       );
       if (!transaction)
         return notFound(new NotFoundError("Transaction not Found"));
-      return success({
+      return success(200, {
         message: "Success",
         data: {
           id: transaction.getId(),
